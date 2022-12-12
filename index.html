@@ -1,0 +1,74 @@
+<html>
+<head>
+    <title>NFT Showdown</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>NFT Showdown</h1>
+
+    <div>
+        <h2>Create Game</h2>
+        <form id="create-game-form">
+            <label>Name:</label><input type="text" id="name" />
+            <label>Attack Power:</label><input type="number" id="attack-power" />
+            <label>Defense Power:</label><input type="number" id="defense-power" />
+            <input type="submit" value="Create" />
+        </form>
+    </div>
+
+    <div>
+        <h2>Join Game</h2>
+        <form id="join-game-form">
+            <label>Name:</label><input type="text" id="name" />
+            <label>Attack Power:</label><input type="number" id="attack-power" />
+            <label>Defense Power:</label><input type="number" id="defense-power" />
+            <input type="submit" value="Join" />
+        </form>
+    </div>
+
+    <div>
+        <h2>Game Results</h2>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        // Get the forms
+        const createGameForm = document.getElementById("create-game-form");
+        const joinGameForm = document.getElementById("join-game-form");
+
+        // Get the elements
+        const name = document.getElementById("name");
+        const attackPower = document.getElementById("attack-power");
+        const defensePower = document.getElementById("defense-power");
+        const results = document.getElementById("results");
+
+        // Listen for submit event on create game form
+        createGameForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            // Create NFT
+            const nft = new NFT(name.value, attackPower.value, defensePower.value);
+
+            // Create game
+            const game = new NFTShowdown(web3.eth.defaultAccount, nft);
+
+            // Display game results
+            results.innerHTML = `Game created! Winner: ${game.calculateWinner()}`;
+        });
+
+        // Listen for submit event on join game form
+        joinGameForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            // Create NFT
+            const nft = new NFT(name.value, attackPower.value, defensePower.value);
+
+            // Join game
+            game.joinGame(web3.eth.defaultAccount, nft);
+
+            // Display game results
+            results.innerHTML = `Game joined! Winner: ${game.calculateWinner()}`;
+        });
+    </script>
+</body>
+</html>
